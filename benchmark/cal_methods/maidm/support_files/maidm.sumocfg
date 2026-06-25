@@ -1,0 +1,11 @@
+<configuration>
+  <input>
+    <net-file value="../../../sim_files/sumo_test.net.xml" />
+    <route-files value="maidm.rou.xml,maidm.flows.xml" />
+    <additional-files value="sumo_test_detectors.xml,../../../sim_files/sumo_test_gps.xml" />
+  </input>
+  <time>
+    <begin value="25200" />
+    <end value="32400" />
+  </time>
+</configuration>

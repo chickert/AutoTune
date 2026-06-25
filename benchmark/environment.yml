@@ -1,0 +1,19 @@
+name: i24_bench
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9.19
+  - cvxopt
+  - matplotlib
+  - numpy
+  - pandas
+  - pyproj
+  - pyyaml
+  - pytz
+  - scipy
+  - seaborn
+  - tqdm
+  - pip 
+  - pip:
+    - -r requirements-imports.txt

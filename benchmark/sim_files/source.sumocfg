@@ -1,0 +1,12 @@
+<configuration>
+  <input>
+    <net-file value="../../sumo_test.net.xml" />
+    <route-files value="routes.rou.xml" />
+    <additional-files value="../../sumo_test_gps.xml,../../sumo_test_lanelocs.xml,../../taz_zones.taz.xml" />
+  </input>
+  <time>
+    <begin value="22800.0" />
+    <end value="23400" />
+    <step-length value="1.0" />
+  </time>
+</configuration>

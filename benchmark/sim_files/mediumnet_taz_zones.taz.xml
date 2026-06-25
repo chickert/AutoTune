@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- TAZs -->
+    <taz id="taz_0">
+      <tazSource id="E0" weight="1.00"/>
+      <tazSink id="E0" weight="1.00"/>
+    </taz>
+    <taz id="taz_1">
+      <tazSource id="E2" weight="1.00"/>
+      <tazSink id="E2" weight="1.00"/>
+    </taz>
+      <taz id="taz_2">
+      <tazSource id="E4" weight="1.00"/>
+      <tazSink id="E4" weight="1.00"/>
+    </taz>
+    <taz id="taz_3">
+      <tazSource id="E6" weight="1.00"/>
+      <tazSink id="E6" weight="1.00"/>
+    </taz>
+    <taz id="taz_4">
+      <tazSource id="E8" weight="1.00"/>
+      <tazSink id="E8" weight="1.00"/>
+    </taz>
+</additional>

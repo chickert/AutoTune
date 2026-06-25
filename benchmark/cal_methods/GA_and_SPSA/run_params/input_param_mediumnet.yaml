@@ -1,0 +1,110 @@
+# simulation_start: "7:00"
+# simulation_end: "8:00"
+simulation_start: "0:00"
+simulation_end: "3:00"
+block_definitions:
+  od: 
+    # alg: "spsa"
+    # alg_params: {"num_generations": 100, "random_seed": 1}
+    alg: "genetic_alg"
+    alg_params: {"num_generations": 3, "sol_per_pop": 4, "random_seed": 1, "od_initial_redistribution_percentage": 15, "od_initial_max_num_shifts": 10}
+    # flow_ranges: [0, 15000]
+    flow_ranges: [0, 18000]
+    taz_description:
+    - sources: ["taz_0", "taz_1", "taz_3"]
+      sinks: ["taz_2", "taz_4"]
+      order: ["taz_0", "taz_1", "taz_2", "taz_3", "taz_4"]
+    # - sources: ["taz_19", "taz_16", "taz_8", "taz_7", "taz_5"]
+    #   sinks: ["taz_17", "taz_11", "taz_10", "taz_6", "taz_0"]
+    #   order: ["taz_19", "taz_17", "taz_16", "taz_10", "taz_11", "taz_7", "taz_8", "taz_6", "taz_5", "taz_0"]
+
+    # - sources: ["taz_1", "taz_3", "taz_14", "taz_13", "taz_18"]
+    #   sinks: ["taz_2", "taz_4", "taz_9", "taz_12", "taz_15", "taz_20"]
+    #   order: ["taz_1", "taz_2", "taz_4", "taz_3", "taz_9", "taz_12", "taz_14", "taz_13", "taz_15", "taz_18", "taz_20"]
+  cfm:
+    # alg: "spsa"
+    # alg_params: {"num_generations": 100, "random_seed": 1}
+    alg: "genetic_alg"
+    alg_params: {"num_generations": 3, "sol_per_pop": 4, "random_seed": 1}
+    param_list:
+    - tau: [0.2, 1.8]
+    - emergencyDecel: [6, 12]
+    - accel: [0.5, 5]
+    - decel: [1, 7]
+    - minGap: [0.2, 5]
+    - delta: [2, 6]
+    - actionStepLength: [0.5,1.1]
+    - speedFactor: [0.8, 1.2] # speedfactor in the cfm block specifies the mean
+  heterogeneity:
+    # alg: "spsa"
+    # alg_params: {"num_generations": 100, "random_seed": 1}
+    alg: "genetic_alg"
+    alg_params: {"num_generations": 3, "sol_per_pop": 4, "random_seed": 1}
+    param_list:
+    - variance: [0.01, 1]
+    - speedFactorVariance: [0.01, 0.2]
+  lc:
+    # alg: "spsa"
+    # alg_params: {"num_generations": 100, "random_seed": 1}
+    alg: "genetic_alg"
+    alg_params: {"num_generations": 3, "sol_per_pop": 4, "random_seed": 1}
+    param_list:
+    - lcStrategic: [0.5, 1.5]
+    - lcCooperative: [0.5, 1]
+    - lcAssertive: [0.5, 1.5]
+    - lcSpeedGain: [0.5, 1.5]
+    - lcKeepRight: [0.5, 1.5]
+  sim:
+    # alg: "spsa"
+    # alg_params: {"num_generations": 100, "random_seed": 1}
+    alg: "genetic_alg"
+    alg_params: {"num_generations": 3, "sol_per_pop": 4, "random_seed": 1}
+    param_list:
+    - num_chunks: [1,2,4] # Discrete list of possibilities, rather than a range.
+    - warmup_time: [0, 60]
+    - step_length: [0.5,1.0]
+
+optimizer_log_dir: './optimizer_output_logs'
+# error_func_type: "velocity_grid"
+error_func_type: "mediumnet" # "macro" or "micro" or "velocity_grid" or "smallnet" or "mediumnet"
+# fitness_criterion: "mape"
+fitness_criterion: "speed_rmse" # if macro, can be 'speed_iou' or 'count_rmse'; if micro, can be 'headway_wass_dist'; if velocity_grid, can be 'mape'; if smallnet or mediumnet, can be 'speed_rmse' or 'volume_rmse' or 'occupancy_rmse'
+detectors_to_omit_from_counts: # List of detector IDs to omit from count-based error function calculations (e.g., if a detector is known to be faulty)
+sim_dir_name: '../../sim_files'
+# summary_file_name: '/visualization_summary.xml'
+# sumocfg_file_name: '/sumo_test.sumocfg'
+sumocfg_file_name: '/mediumnet.sumocfg'
+trip_info_file_name: "/trips.trips.xml"
+# edge_data_file_name: "/edge_data.xml" # TODO: Can delete? Commenting out for now
+# network_file: '/sumo_test.net.xml'
+# source_sumocfg_file: '/source.sumocfg'
+source_sumocfg_file: '/source_mediumnet.sumocfg'
+network_file: '/mediumnet.net.xml'
+output_routes: '/routes.rou.xml'
+output_flows:  '/output_flows.xml'
+# detector_file: '/sumo_test_detectors.xml'
+detector_file: '/mediumnet_detectors.add.xml'
+taz_file: '/mediumnet_taz_zones.taz.xml'
+fcd_output_file: '/fcd_output.xml'
+data_dir_name: '../../detector_measurements'
+# data_path: '/1130/scen3_unnoised_1130_0420-0480.csv' # TODO: Currently not used in eval, but needed for initialization. Change so won't crash if not provided. # NOTE: Requires this format.
+data_path: '/1113/mediumnet_0300-0480.csv'
+# data_path_for_eval: '/1121/scen3_unnoised_1121_0360-0600.csv' # Only used for evaluation, not calibration (for example, to allow calibration w/ noised data but eval w/ unnoised data).
+# checkpoint_to_eval: '/intermediate_best_checkpoint-GA-7.yaml'
+data_path_for_eval: '/1113/mediumnet_0300-0480.csv'
+checkpoint_to_eval: '/best_checkpoints/mediumnet-GA-0.yaml'
+data_year_str: '2023' # Which year the data is from (for use in micro errror function). Not used with macro error function.
+interval_len_in_min: 15 # Frequency of timestamps for microscopic objective function (inclusive). Not used with macro error func.
+interval_len_in_sec: 10 # Frequency of timestamps for velocity_grid objective function (inclusive). Not used with macro error func.
+ga_workers: 2
+aggregation_interval: 60
+duarouter_output_routes: '/duarouter_initialization.xml'
+flowrouter_output_flows: '/flowrouter.flows.xml'
+od_initialization_file: '/initial_od.xml'
+num_vtypes: 100
+checkpoints_dir: './checkpoints' # Directory to save intermediate best solutions
+inception_data_dir: '../../../../../benchmark/i24_data/' # Directory containing the inception data files (used for micro error function)
+intermediate_yaml_filename: "intermediate.yaml"
+optimizer_summary_report_csv: "/optimizer_summary_report.csv"
+mm_latlon_mapping_path: "../../build_data/mile_marker_layer.csv" # Path to file used to translate between milemarkers and lat/lon coordinates in micro error function
+cached_traj_dir: './cached_trajectories/' # Directory to store/load cached INCEPTION trajectories for faster processing in micro error function

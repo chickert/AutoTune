@@ -1,0 +1,11 @@
+<configuration>
+  <input>
+    <net-file value="../../../sim_files/sumo_test.net.xml" />
+    <route-files value="sumo_baseline.rou.xml,sumo_baseline.flows.xml" />
+    <additional-files value="sumo_test_detectors.xml,../../../sim_files/sumo_test_gps.xml,../../../sim_files/sumo_test_lanelocs.xml" />
+  </input>
+  <time>
+    <begin value="21600" />
+    <end value="36000" />
+  </time>
+</configuration>
